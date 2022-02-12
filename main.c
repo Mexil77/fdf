@@ -6,75 +6,66 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:02:14 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/12 17:58:13 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/12 22:46:22 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_draworiginal(int w, int h, t_general *g)
+void	ft_inigeneral(t_general *g, char *map)
 {
-	float		x;
-	float		y;
-
-	x = 0.0;
-	while (x < w)
-		mlx_pixel_put(g->mlx, g->win, x++, g->c.y, 250);
-	y = 0.0;
-	while (y < h)
-		mlx_pixel_put(g->mlx, g->win, g->c.x, y++, 250);
+	g->winh = 500;
+	g->winw = 1000;
+	g->scale = 20;
+	g->mlx = mlx_init();
+	g->win = mlx_new_window(g->mlx, g->winw, g->winh, "so_long");
+	if (!g->win)
+		printf("Fallo al crear la ventana");
+	g->c.x = g->winw / 3;
+	g->c.y = g->winh / 4;
+	g->c.z = 0;
+	g->c.content = NULL;
+	ft_inimap(g, map);
 }
 
-void	ft_drawisometric(int w, int h, t_general *g)
+void	ft_printgeneral(t_general *g)
 {
-	float	x;
-	float	y;
-	float	xend;
+	size_t	i;
+	size_t	j;
 
-	x = (float)(g->c.x);
-	y = ((tan(MPI / 6) * (x - (g->c.x))) + (g->c.y));
-	xend = (h + (w * tanf(MPI / 6))) / (2 * tanf(MPI / 6));
-	while (x < w && y < h && x < xend)
+	printf("c.x : %f\n", g->c.x);
+	printf("c.y : %f\n", g->c.y);
+	printf("c.z : %f\n", g->c.z);
+	printf("c.content : %s\n", g->c.content);
+	printf("c.h : %zu\n", g->h);
+	printf("c.w : %zu\n", g->w);
+	printf("c.winh : %d\n", g->winh);
+	printf("c.winw : %d\n", g->winw);
+	i = -1;
+	while (++i < g->h)
 	{
-		mlx_pixel_put(g->mlx, g->win, x++, y, 250);
-		y = ((tan(MPI / 6) * (x - (g->c.x))) + (g->c.y));
+		j = -1;
+		while (++j < g->h)
+			printf("map[%zu][%zu] : (%f, %f, %f, %s)\n",
+				j, i, g->map[i][j].x, g->map[i][j].y, g->map[i][j].z,
+				g->map[i][j].content);
 	}
-	x = (h + (w * tanf(5 * MPI / 6))) / (2 * tanf(5 * MPI / 6));
-	y = ((tan(5 * MPI / 6) * (x - (g->c.x))) + (g->c.y));
-	xend = g->c.x;
-	while (x < 0)
-		x++;
-	while (x < xend)
-	{
-		mlx_pixel_put(g->mlx, g->win, x++, y, 250);
-		y = ((tan(5 * MPI / 6) * (x - (g->c.x))) + (g->c.y));
-	}
-	x = g->c.x;
-	y = g->c.y;
-	while (y > 0)
-		mlx_pixel_put(g->mlx, g->win, x, y--, 250);
 }
 
+/* ft_printgeneral(&general); */
 int	main(int argc, char **argv)
 {
 	t_general	general;
-	int			h;
-	int			w;
 
-	if (argc != 1)
+	if (argc != 2)
+	{
 		printf("Fallo de argumentos %s\n", argv[0]);
-	h = 500;
-	w = 1000;
-	general.mlx = mlx_init();
-	general.win = mlx_new_window(general.mlx, w, h, "so_long");
-	if (!general.win)
-		printf("Fallo al crear la ventana");
-	general.c.x = w / 2;
-	general.c.y = h / 2;
-	general.c.z = 0;
-	general.c.content = NULL;
-	ft_draworiginal(w, h, &general);
-	ft_drawisometric(w, h, &general);
+		return (0);
+	}
+	ft_inigeneral(&general, argv[1]);
+	ft_fillmap(&general, argv[1]);
+	//ft_draworiginal(general.winw, general.winh, &general);
+	ft_drawisometric(general.winw, general.winh, &general);
 	mlx_loop(general.mlx);
 	return (0);
 }

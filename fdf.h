@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:08:56 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/12 22:44:42 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/12 23:28:46 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,15 @@ void	ft_freemap(t_point **map);
 /* Utils2 */
 void	ft_printsplit(char **split);
 void	ft_drawline(t_general *g, t_point p1, t_point p2);
+void	ft_drawpoints(t_general *g);
+void	ft_drawlines(t_general *g);
 
 /* Inimap */
 void	ft_calcdim(int fd, size_t *w, size_t *h);
 void	ft_inimap(t_general *g, char *map);
 void	ft_fillmap(t_general *g, char *map);
+
+/* Isometric */
+void	ft_isometricconvert(t_general *g);
 
 #endif

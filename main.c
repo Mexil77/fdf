@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:02:14 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/12 22:46:22 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/12 23:38:25 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_inigeneral(t_general *g, char *map)
 {
 	g->winh = 500;
 	g->winw = 1000;
-	g->scale = 20;
+	g->scale = 30;
 	g->mlx = mlx_init();
 	g->win = mlx_new_window(g->mlx, g->winw, g->winh, "so_long");
 	if (!g->win)
@@ -64,8 +64,9 @@ int	main(int argc, char **argv)
 	}
 	ft_inigeneral(&general, argv[1]);
 	ft_fillmap(&general, argv[1]);
-	//ft_draworiginal(general.winw, general.winh, &general);
-	ft_drawisometric(general.winw, general.winh, &general);
+	ft_isometricconvert(&general);
+	ft_drawlines(&general);
+	//ft_drawisometric(general.winw, general.winh, &general);
 	mlx_loop(general.mlx);
 	return (0);
 }

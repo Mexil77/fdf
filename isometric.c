@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 22:53:39 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/12 23:25:30 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/13 03:49:18 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_isometricconvert(t_general *g)
 		{
 			g->map[i][j].x = xr + (g->scale * j * cosf(MPI / 6));
 			g->map[i][j].y = yr + (g->scale * j * sinf(MPI / 6));
-			g->map[i][j].y -= g->map[i][j].z;
+			g->map[i][j].y -= (g->map[i][j].z * g->scale / 2);
 		}
 	}
 }

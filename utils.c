@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 18:02:48 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/12 22:44:25 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/13 06:37:58 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,27 @@ void	ft_draworiginal(int w, int h, t_general *g)
 		mlx_pixel_put(g->mlx, g->win, g->c.x, y++, 250);
 }
 
-void	ft_drawisometric(int w, int h, t_general *g)
+void	ft_drawisometric(t_general *g)
 {
 	float	x;
 	float	y;
-	float	xend;
 	t_point	p1;
 	t_point	p2;
 
 	p1.x = g->c.x;
 	p1.y = g->c.y;
-	p2.x = ((h - g->c.y) / tanf(MPI / 6) + g->c.x);
+	p1.z = 1;
+	p2.x = ((g->winh - g->c.y) / tanf(MPI / 6) + g->c.x);
 	p2.y = ((tan(MPI / 6) * (p2.x - (g->c.x))) + (g->c.y));
+	p2.z = 1;
 	ft_drawline(g, p1, p2);
-	p1.x = ((h - g->c.y) / tanf(5 * MPI / 6) + g->c.x);
+	p1.x = ((g->winh - g->c.y) / tanf(5 * MPI / 6) + g->c.x);
 	p1.y = ((tan(5 * MPI / 6) * (p1.x - (g->c.x))) + (g->c.y));
+	p1.z = 1;
 	p2.x = g->c.x;
 	p2.y = g->c.y;
+	p2.z = 1;
 	ft_drawline(g, p1, p2);
-	w = 0;
-	xend = 0;
 	x = g->c.x;
 	y = g->c.y;
 	while (y > 0)

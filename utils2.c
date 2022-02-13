@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 21:03:30 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/12 23:34:19 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/13 06:37:04 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,35 @@ void	ft_drawpoints(t_general *g)
 	}
 }
 
+int	ft_getcolor(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
 void	ft_drawline(t_general *g, t_point p1, t_point p2)
 {
 	float	m;
 	float	y;
 	float	x;
+	int		color;
 
 	m = (p2.y - p1.y) / (p2.x - p1.x);
 	x = p1.x;
 	while (x < 0)
 		x++;
 	y = (m * (x - p1.x)) + p1.y;
-	while (x < g->winw && y < g->winh && x < p2.x)
+	while (y > g->winh && ++x < p2.x)
+		y = (m * (x - p1.x)) + p1.y;
+	while (x < g->winw && x < p2.x)
 	{
-		mlx_pixel_put(g->mlx, g->win, x++, y, 250);
+		if (p1.z > 0)
+			color = g->neutral * p1.z;
+		else if (p1.z < 0)
+			color = g->neutral * -p1.z + 3000;
+		else
+			color = g->neutral;
+		mlx_pixel_put(g->mlx, g->win, x, y, color);
+		x += 0.1;
 		y = (m * (x - p1.x)) + p1.y;
 	}
 }

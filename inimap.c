@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 19:29:25 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/20 14:43:41 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/20 18:14:12 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_inimap(t_general *g, char *map)
 	{
 		g->map[i] = ft_calloc(sizeof(t_point), (g->w + 1));
 		if (!g->map[i])
-			return (ft_freemap(g->map));
+			return (ft_freemap(g));
 	}
 	ft_inicords(g);
 	close (fd);

@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 21:03:30 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/20 16:36:43 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/20 19:43:22 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,70 +23,28 @@ void	ft_printsplit(char **split)
 		printf("%s\n", split[i]);
 }
 
-void	ft_drawpoints(t_general *g)
+int	ft_getvalue(char c, char *base)
 {
+	int	i;
+
+	i = 0;
+	while (base[i] && c != base[i])
+		i++;
+	return (i);
+}
+
+int	ft_hextoint(char *num, char *newbase)
+{
+	size_t	maxpow;
+	size_t	base;
 	size_t	i;
-	size_t	j;
+	int		res;
 
+	maxpow = ft_strlen(num) - 1;
+	base = ft_strlen(newbase);
+	res = 0;
 	i = -1;
-	while (++i < g->h)
-	{
-		j = -1;
-		while (++j < g->w)
-			mlx_pixel_put(g->mlx, g->win, g->map[i][j].x, g->map[i][j].y, 250);
-	}
-}
-
-int	ft_getcolor(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
-
-void	ft_drawline(t_general *g, t_point p1, t_point p2)
-{
-	float	m;
-	float	y;
-	float	x;
-	int		color;
-
-	m = (p2.y - p1.y) / (p2.x - p1.x);
-	x = p1.x;
-	while (x < 0)
-		x++;
-	y = (m * (x - p1.x)) + p1.y;
-	while (y >= g->winh && ++x < p2.x)
-		y = (m * (x - p1.x)) + p1.y;
-	while (x < g->winw && x < p2.x && y < g->winh)
-	{
-		if (p1.z > 0)
-			color = g->neutral * p1.z;
-		else if (p1.z < 0)
-			color = g->neutral * -p1.z + 3000;
-		else
-			color = g->neutral;
-		ft_myputpixel(g, x, y, color);
-		x += 0.1;
-		y = (m * (x - p1.x)) + p1.y;
-	}
-}
-
-void	ft_drawlines(t_general *g)
-{
-	size_t	i;
-	size_t	j;
-
-	i = -1;
-	while (++i < g->h)
-	{
-		j = -1;
-		while (++j < g->w - 1)
-			ft_drawline(g, g->map[i][j], g->map[i][j + 1]);
-	}
-	j = -1;
-	while (++j < g->w)
-	{
-		i = -1;
-		while (++i < g->h - 1)
-			ft_drawline(g, g->map[i + 1][j], g->map[i][j]);
-	}
+	while (num[++i])
+		res += (ft_getvalue(num[i], newbase) * pow(base, maxpow - i));
+	return (res);
 }

@@ -6,19 +6,11 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:02:14 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/20 16:23:02 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/20 19:43:38 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	ft_myputpixel(t_general *g, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = g->addr + (y * g->linelenght + x * (g->bpp / 8));
-	*(unsigned int *)dst = color;
-}
 
 void	ft_inigeneral(t_general *g, char *map)
 {
@@ -63,6 +55,23 @@ void	ft_printgeneral(t_general *g)
 	}
 }
 
+int	ft_keyhook(int keycode, t_general *g)
+{
+	if (keycode == 53)
+	{
+		ft_freemap(g);
+		exit(0);
+	}
+	return (0);
+}
+
+int	ft_closeredcros(t_general *g)
+{
+	ft_freemap(g);
+	exit(0);
+	return (0);
+}
+
 /* ft_printgeneral(&general); */
 int	main(int argc, char **argv)
 {
@@ -80,6 +89,9 @@ int	main(int argc, char **argv)
 	ft_drawlines(&general);
 	//ft_printgeneral(&general);
 	mlx_put_image_to_window(general.mlx, general.win, general.img, 0, 0);
+	mlx_destroy_image(general.mlx, general.img);
+	mlx_hook(general.win, 17, 1L << 17, ft_closeredcros, &general);
+	mlx_key_hook(general.win, ft_keyhook, &general);
 	mlx_loop(general.mlx);
 	return (0);
 }

@@ -6,11 +6,11 @@
 #    By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/07 12:34:11 by emgarcia          #+#    #+#              #
-#    Updated: 2022/02/12 23:12:58 by emgarcia         ###   ########.fr        #
+#    Updated: 2022/02/20 19:10:08 by emgarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	main.c utils.c utils2.c inimap.c isometric.c
+SRCS	=	main.c utils.c utils2.c inimap.c isometric.c draw.c
 LIBFT	=	Libft/libft.a
 OBJS	=	${SRCS:.c=.o}
 NAME	=	fdf

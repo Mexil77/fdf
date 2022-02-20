@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 18:02:48 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/20 14:31:22 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/20 18:17:52 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,19 @@ void	ft_freesplit(char **split)
 	free (split);
 }
 
-void	ft_freemap(t_point **map)
+void	ft_freemap(t_general *g)
 {
 	size_t	i;
+	size_t	j;
 
 	i = -1;
-	while (map[++i])
-		free (map[i]);
-	free (map);
+	while (++i < g->h)
+	{
+		j = -1;
+		while (++j < g->w)
+			if (g->map[i][j].content)
+				free (g->map[i][j].content);
+		free (g->map[i]);
+	}
+	free (g->map);
 }

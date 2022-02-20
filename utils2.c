@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 21:03:30 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/13 06:37:04 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/20 16:36:43 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	ft_drawline(t_general *g, t_point p1, t_point p2)
 	while (x < 0)
 		x++;
 	y = (m * (x - p1.x)) + p1.y;
-	while (y > g->winh && ++x < p2.x)
+	while (y >= g->winh && ++x < p2.x)
 		y = (m * (x - p1.x)) + p1.y;
-	while (x < g->winw && x < p2.x)
+	while (x < g->winw && x < p2.x && y < g->winh)
 	{
 		if (p1.z > 0)
 			color = g->neutral * p1.z;
@@ -64,7 +64,7 @@ void	ft_drawline(t_general *g, t_point p1, t_point p2)
 			color = g->neutral * -p1.z + 3000;
 		else
 			color = g->neutral;
-		mlx_pixel_put(g->mlx, g->win, x, y, color);
+		ft_myputpixel(g, x, y, color);
 		x += 0.1;
 		y = (m * (x - p1.x)) + p1.y;
 	}

@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 18:02:48 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/13 06:37:58 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/20 14:31:22 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	ft_draworiginal(int w, int h, t_general *g)
 
 	x = 0.0;
 	while (x < w)
-		mlx_pixel_put(g->mlx, g->win, x++, g->c.y, 250);
+		ft_myputpixel(g, x++, g->c.y, 250);
 	y = 0.0;
 	while (y < h)
-		mlx_pixel_put(g->mlx, g->win, g->c.x, y++, 250);
+		ft_myputpixel(g, g->c.x, y++, 250);
 }
 
 void	ft_drawisometric(t_general *g)
@@ -49,7 +49,7 @@ void	ft_drawisometric(t_general *g)
 	x = g->c.x;
 	y = g->c.y;
 	while (y > 0)
-		mlx_pixel_put(g->mlx, g->win, x, y--, 250);
+		ft_myputpixel(g, x, y--, 250);
 }
 
 size_t	ft_splitlen(char **split)

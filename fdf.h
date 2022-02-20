@@ -6,7 +6,7 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:08:56 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/13 06:01:37 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/20 14:32:41 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,18 @@ typedef struct s_general
 	int		winh;
 	int		winw;
 	int		neutral;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		linelenght;
+	int		endian;
 	size_t	h;
 	size_t	w;
 	size_t	scale;
 }	t_general;
+
+/* Main */
+void	ft_myputpixel(t_general *g, int x, int y, int color);
 
 /* Utils */
 void	ft_draworiginal(int w, int h, t_general *g);

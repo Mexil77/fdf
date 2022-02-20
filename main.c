@@ -6,11 +6,19 @@
 /*   By: emgarcia <emgarcia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:02:14 by emgarcia          #+#    #+#             */
-/*   Updated: 2022/02/13 06:43:29 by emgarcia         ###   ########.fr       */
+/*   Updated: 2022/02/20 16:23:02 by emgarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_myputpixel(t_general *g, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = g->addr + (y * g->linelenght + x * (g->bpp / 8));
+	*(unsigned int *)dst = color;
+}
 
 void	ft_inigeneral(t_general *g, char *map)
 {
@@ -27,6 +35,8 @@ void	ft_inigeneral(t_general *g, char *map)
 	g->c.z = 0;
 	g->c.content = NULL;
 	ft_inimap(g, map);
+	g->img = mlx_new_image(g->mlx, g->winw, g->winh);
+	g->addr = mlx_get_data_addr(g->img, &g->bpp, &g->linelenght, &g->endian);
 }
 
 void	ft_printgeneral(t_general *g)
@@ -65,10 +75,11 @@ int	main(int argc, char **argv)
 	}
 	ft_inigeneral(&general, argv[1]);
 	ft_fillmap(&general, argv[1]);
-	//ft_printgeneral(&general);
-	ft_drawisometric(&general);
+	//ft_drawisometric(&general);
 	ft_isometricconvert(&general);
 	ft_drawlines(&general);
+	//ft_printgeneral(&general);
+	mlx_put_image_to_window(general.mlx, general.win, general.img, 0, 0);
 	mlx_loop(general.mlx);
 	return (0);
 }
